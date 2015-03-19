@@ -7,26 +7,35 @@
 <p><a href="/signup/">Sign up</a> to apply to some event</p>
 {% endif %} 
 
-
   {% if events.count > 0 %}
       {% for event in events %}
           {% if event.upcoming %}
-            <article>
-              <header>
-                <a href="/events/{{ event.id }}">{{ event.event_name }}</a>
-              </header>
-              {{ event.description }}
-              <footer>
-                  <nav>
-                    <ul>
-                      {% if user.is_authenticated %}
-                      <li><a href="/events/{{ event.id }}/">Apply</a></li>
-                      {% endif %}
-                      <li>Applications deadline: {{ event.applications_deadline|date:"M d, Y" }}</li>
-                    </ul>
-                  </nav>
-              </footer>
-            </article>
+            
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="media">
+                            <div class="media-left media-middle">
+                                <a href="#">
+                                <img class="media-object" src="{{STATIC_URL}}images/foot.png" alt="...">
+                                </a>
+                            </div>
+                            <div class="media-body">
+                                <h4 class="media-heading">{{ event.event_name }}</h4>
+                                {{ event.description }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-footer clearfix"> Applications deadline: {{ event.applications_deadline|date:"M d, Y" }}
+                      <div class="pull-right  btn-xs">
+
+                        <a href="/events/{{ event.id }}" class="btn btn-default  btn-sm">Learn More</a>
+                        {% if user.is_authenticated %}
+                        <a href="/events/{{ event.id }}" class="btn btn-default  btn-sm">Apply</a>
+                        {% endif %}
+                    </div>
+                  </div>
+                </div>
+                
           {% endif %}
       {% endfor %}
   {% else %}
